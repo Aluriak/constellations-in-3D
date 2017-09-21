@@ -1,0 +1,2 @@
+clyngor>=0.0.16
+pytest>=3.2.2

@@ -1,0 +1,6 @@
+*.dat
+*.vim
+venv/
+__pycache__/
+.cache/
+.zcache/
