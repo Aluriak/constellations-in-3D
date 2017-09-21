@@ -29,7 +29,7 @@ def walk_by_all_edges(graph:dict) -> iter:
 
 
 def call_gnuplot(data_file:str=OUTPUT_DATA_FILE, gnuplot_bin:str='gnuplot'):
-    command = [gnuplot_bin, '-e', 'splot "{}" w lp ps 5 ; pause -1'.format(data_file)]
+    command = [gnuplot_bin, '-e', 'splot "{}" w lp ps 1 ; pause -1'.format(data_file)]
     # print('COMMAND:', command)
     # print('COMMAND:', ' '.join(command))
     process = subprocess.Popen(command)
