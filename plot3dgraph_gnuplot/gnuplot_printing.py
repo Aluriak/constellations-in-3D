@@ -2,8 +2,8 @@ import subprocess
 import clyngor
 
 
-OUTPUT_DATA_FILE = 'constellation.dat'
-GNUPLOT_SCRIPT_FILE = 'gnuplot_script.gps'
+OUTPUT_DATA_FILE = 'output/constellation.dat'
+ASP_SOURCE_CODE = 'plot3dgraph_gnuplot/search_whole_path.lp'
 
 
 def to_dat(points:iter, fname:str=OUTPUT_DATA_FILE):
@@ -22,21 +22,22 @@ def walk_by_all_edges(graph:dict) -> iter:
                     for pred, succs in graph.items()
                     for succ in succs) + '.'
     assert len(data) > 1
-    for answer in clyngor.solve('search_whole_path.lp', inline=data).by_predicate.careful_parsing:
+    for answer in clyngor.solve(ASP_SOURCE_CODE, inline=data).by_predicate.careful_parsing:
         pass
     # print(sorted(answer['goto'], key=lambda x: x[0]))
     yield from (n.strip('"') for _, n in sorted(answer['goto'], key=lambda x: x[0]))
 
 
-def call_gnuplot(script:str=GNUPLOT_SCRIPT_FILE, gnuplot_bin:str='gnuplot'):
-    command = [gnuplot_bin, '-e', 'splot "constellation.dat" w lp ps 5 ; pause -1']
+def call_gnuplot(data_file:str=OUTPUT_DATA_FILE, gnuplot_bin:str='gnuplot'):
+    command = [gnuplot_bin, '-e', 'splot "{}" w lp ps 5 ; pause -1'.format(data_file)]
     # print('COMMAND:', command)
     # print('COMMAND:', ' '.join(command))
     process = subprocess.Popen(command)
     process.wait()
 
 
-def print_graph(graph:dict, fname:str=OUTPUT_DATA_FILE):
+def plot(graph:dict, fname:str=OUTPUT_DATA_FILE):
+    """Build the data file, then call gnuplot on it"""
     writable = lambda s: s.strip('()').replace(',', '').split(' ')
     to_dat(map(writable, walk_by_all_edges(graph)), fname=fname)
     call_gnuplot()
