@@ -1,5 +1,5 @@
 
-import gnuplot_printing
+from . import gnuplot_printing
 
 
 def test_linear():
