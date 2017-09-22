@@ -1,0 +1,67 @@
+# Retrieve stars informations
+Our goal is to be able to place stars in a carthesian (rectangular)
+coordinates system.
+
+
+## used computations
+- [precious help](http://curious.astro.cornell.edu/about-us/79-the-universe/stars-and-star-clusters/distances/354-how-can-i-calculate-distances-between-stars-advanced), thank you !
+- [link between parallax and distance made easy](https://lco.global/spacebook/parallax-and-distance-measurement/)
+
+Ici, on apprend qu'un système de coordonnées en 3D existant et standard en astronomie est Spherical Coordinates.
+Les coordonnées sphériques s'expriment depuis les carthésiennes par:
+
+    r     = sqrt(x^2+y^2+z^2)
+    theta = arctan(y/x)
+    phi   = arccos(z/r)
+
+Et à l'inverse:
+
+    x = r cos(theta) sin(phi)
+    y = r sin(theta) sin(phi)
+    z = r cos(phi)
+
+## First tray
+At first, i though i could use [pyephem](https://asimpleweblog.wordpress.com/2010/07/04/astrometry-in-python-with-pyephem/#stars),
+but it appears it do not get the informations i look for.
+
+## SIMBAD
+- [How to query SIMBAD ?](http://simbad.u-strasbg.fr/guide/sim-q.htx)
+- [astroquery doc](http://astroquery.readthedocs.io/en/latest/simbad/simbad.html)
+
+
+
+
+# Retrieve constellations informations
+- [not possible with skyfield](http://rhodesmill.org/skyfield/)
+- [depressing: no official database exists](https://astronomy.stackexchange.com/questions/20906/stars-in-constellation-patterns-by-catalogue-number)
+- [but there is stellarium !](https://astronomy.stackexchange.com/a/21000/14388)
+
+So, we have [the constellations content](https://github.com/Stellarium/stellarium/blob/master/skycultures/western/constellationship.fab), and
+[the name of the constellations](https://github.com/Stellarium/stellarium/blob/master/skycultures/western/constellation_names.eng.fab).
+
+Note that Stellarium also offer to see [the constellations of other cultures](https://github.com/Stellarium/stellarium/tree/master/skycultures).
+Around 30 of them.
+
+A constellation is defined as followed:
+
+    id number_of_link links
+
+Where links is a pair number of HYPPARCOS identifiers,
+where each pair is a link between the stars of given identifiers.
+
+For instance:
+
+    Aql 10 98036 97649 97649 97278 97278 96229 96229 95501 95501 97804 99473 97804 95501 93747 93747 93244 95501 93805 93805 93429
+
+Is a constellation of id Aql, with 10 links, with the first linking
+H98036 and H97649.
+
+Simbad interface understand the identifiers when prefixed with `HIP` (eg `HIP 98036`).
+
+
+
+
+# Plot graphs in 3D
+- [Started to create my own rendering engine for fun](https://github.com/Aluriak/plot-3D-points)
+- found gnuplot, thanks to a friend
+- now gnuplot works like a charm

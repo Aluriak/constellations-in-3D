@@ -1,0 +1,50 @@
+# Constellations visualization in 3D
+A project that arose while writing [an article on Space Engine related
+to constellations](https://lucas.bourneuf.net/blog/se-constellations.html),
+where i show how some constellations looks like from Altaïr.
+
+See the [cookbook](cookbook.mkd) for the full data search and handling
+of this project.
+
+## Current results
+Not really interesting. All constellations seems a bit weird, with misplaced stars.
+One really recognizable is Cygnus, but there is no point of view that get it right.
+
+
+# Retrieve stars informations
+Our goal is to be able to place stars in a carthesian (rectangular)
+coordinates system.
+
+This is made possible by some geometry conversions from the galactic
+coordinate system. Stars locations are retrieved from SIMBAD database.
+
+
+
+# Retrieve constellations informations
+Are needed [the constellations content](https://raw.githubusercontent.com/Stellarium/stellarium/master/skycultures/western/constellationship.fab), and
+[their names](https://raw.githubusercontent.com/Stellarium/stellarium/master/skycultures/western/constellation_names.eng.fab).
+
+The `retrieve_stellarium_data` recipe do precisely that.
+
+
+
+
+# Plot graphs in 3D
+This part is theoretically quite simple : a constellation is basically
+a graph with stars as nodes and link between stars as edges.
+
+So, at the very least, we just need to plot dots and lines
+in a 3D space, which should not be that hard.
+
+- [a list of 3D engines](https://stackoverflow.com/a/4523262/3077939)
+- [blender ?](https://docs.blender.org/api/current/info_quickstart.html#) as python scripting, seems good… but i can't find a list of creatable objects and their parameters. I don't know blender at all.
+- [pyqt ?]() seems to be a low level interface to opengl
+- [qt vtk ?](http://www.ifnamemain.com/posts/2013/Dec/08/python_qt_vtk/) seems good
+- [kyvi ?](https://kivy.org/docs/gettingstarted/intro.html) seems complicated for 3D
+
+Solutions that works with opengl directly (pyglet for instance)
+are probably too long to learn. Plotting is not all: we have to be able
+to move around the structure in order to reach the final goal.
+
+## finally, solutions
+- gnuplot
