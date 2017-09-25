@@ -9,15 +9,16 @@ import plot3dgraph_gnuplot
 
 def cli() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
-    parser.add_argument('constellation', type=str, default='cygnus',
+    parser.add_argument('constellation', type=str, nargs='+',
+                        default=['cygnus'],
                         help="Name of the constellation to print. Try cygnus, "
                         "cetus, ursa minor, or camelopardalis")
     return parser.parse_args()
 
 
-def run(constellation:str):
+def run(constellations:[str]):
     print("Starting.")
-    for name, graph, stars in generate_constellations.as_graphs(constellation):
+    for name, graph, stars in generate_constellations.as_graphs(constellations):
     # for name, graph, stars in generate_constellations.example():
         print("Processing constellation {} ({} stars)…"
               "".format(name.title(), len(stars)), end='', flush=True)

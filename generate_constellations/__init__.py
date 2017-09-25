@@ -9,7 +9,7 @@ def as_graphs(names:str or [str]) -> [str, dict, dict]:
     if 'example' in names:
         yield from example()
         return
-    for constellation, links, stars_id in constellations.by_name(names):
+    for constellation, links, stars_id in constellations.by_name(*names):
         # get the coords and the names
         stars = {}
         for star in stars_module.stars_from_name(*stars_id):
