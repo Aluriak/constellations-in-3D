@@ -2,17 +2,23 @@
 """
 
 
+import argparse
 import generate_constellations
 import plot3dgraph_gnuplot
 
-TARGET = 'Cetus'
-TARGET = 'Ursa Minor'
-TARGET = 'Camelopardalis'
-TARGET = 'Cygnus'
 
-if __name__ == '__main__':
+def cli() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('constellation', type=str, default='cygnus',
+                        help="Name of the constellation to print. Try cygnus, "
+                        "cetus, ursa minor, or camelopardalis")
+    return parser.parse_args()
+
+
+def run(constellation:str):
     print("Starting.")
-    for name, graph, stars in generate_constellations.as_graphs(TARGET):
+    for name, graph, stars in generate_constellations.as_graphs(constellation):
+    # for name, graph, stars in generate_constellations.example():
         print("Processing constellation {} ({} stars)…"
               "".format(name.title(), len(stars)), end='', flush=True)
         print('\nGRAPH:', graph, end='\n\n')
@@ -26,4 +32,14 @@ if __name__ == '__main__':
         print("Plotting: press enter to stop.", end='', flush=True)
         plot3dgraph_gnuplot.plot(graph)
     print("Finished !")
+
+TARGET = 'Cetus'
+TARGET = 'Camelopardalis'
+TARGET = 'Cygnus'
+TARGET = 'Ursa Minor'
+
+if __name__ == '__main__':
+    args = cli()
+    run(args.constellation)
+
 
