@@ -7,7 +7,7 @@ See the [cookbook](cookbook.mkd) for the full data search and handling
 of this project.
 
 ## Current results
-Not really interesting. All constellations seems a bit weird, with misplaced stars.
+Not really precise, sometimes completely off. All constellations seems a bit weird, with misplaced stars.
 One really recognizable is Cygnus, but there is no point of view that get it right.
 
 
